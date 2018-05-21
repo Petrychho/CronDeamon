@@ -13,9 +13,9 @@ struct tmp_time
 
 tmp_time extractNumeric(const std::string& c_strTask)
 {
-    if(c_strTask.size() != 0);
+    tmp_time ext_time;
+    if(!c_strTask.empty())
     {
-        tmp_time ext_time;
         try
         {
             if((c_strTask.at(0) == '*') && (c_strTask.at(1) == '/'))
@@ -36,7 +36,6 @@ tmp_time extractNumeric(const std::string& c_strTask)
         }
         catch(const boost::bad_lexical_cast&)
         { std::cout << "Error in type casting string -> int" << std::endl;}
-        return ext_time;
     }
     return ext_time;
 }
