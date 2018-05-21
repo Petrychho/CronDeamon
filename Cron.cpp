@@ -7,30 +7,38 @@
 
 struct tmp_time
 {
-    unsigned int time = 0;
-    unsigned int period = 1;
+    int time = -1;
+    int period = -1;
 };
 
 tmp_time extractNumeric(const std::string& c_strTask)
 {
-    tmp_time ext_time;
-    try
+    if(c_strTask.size() != 0);
     {
-        if((c_strTask.at(0) == '*') && (c_strTask.at(1) == '/'))
+        tmp_time ext_time;
+        try
         {
-            std::string newStringforInt = c_strTask.substr(2);
-            ext_time.period = boost::lexical_cast<unsigned>(newStringforInt);
+            if((c_strTask.at(0) == '*') && (c_strTask.at(1) == '/'))
+            {
+                std::string newStringforInt = c_strTask.substr(2);
+                ext_time.period = boost::lexical_cast<unsigned>(newStringforInt);
+                ext_time.time = 0;
+                return ext_time;
+            }
+            if(c_strTask.at(0) == '*' && c_strTask.size() == 1)
+            {
+                ext_time.time = 0;
+                ext_time.period = 1;
+                return ext_time;
+            }
+            ext_time.time = boost::lexical_cast<unsigned>(c_strTask);
             return ext_time;
         }
-        if(c_strTask.at(0) == '*' && c_strTask.size() == 1)
-        {
-            return ext_time;
-        }
-        ext_time.time = boost::lexical_cast<unsigned>(c_strTask);
+        catch(const boost::bad_lexical_cast&)
+        { std::cout << "Error in type casting string -> int" << std::endl;}
         return ext_time;
     }
-    catch(const boost::bad_lexical_cast&)
-    { std::cout << "Error in type casting string -> int" << std::endl;}
+    return ext_time;
 }
 
 struct timeTask
