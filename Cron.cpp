@@ -53,27 +53,31 @@ struct timeTask
 
 class Task
 {
-public:
+private:
     timeTask t_time;
     std::string cmd_comand;
-private:
-   unsigned int extractMinutesVal(const std::string &c_strTask)
+public:
+   void extractMinutesVal(const std::string &c_strTask)
    {
        tmp_time ext_time = extractNumeric(c_strTask);
        t_time.minute = ext_time.time;
        t_time.min_period = ext_time.period;
    }
-   int extractHoursVal(const std::string &c_strTask)
+   void extractHoursVal(const std::string &c_strTask)
    {
        tmp_time ext_time = extractNumeric(c_strTask);
        t_time.hour = ext_time.time;
        t_time.hour_period = ext_time.period;
    }
-   int extractDaysVal(const std::string &c_strTask)
+   void extractDaysVal(const std::string &c_strTask)
    {
        tmp_time ext_time = extractNumeric(c_strTask);
        t_time.day = ext_time.time;
        t_time.day_period = ext_time.period;
+   }
+   void extractCmdVal(const std::string &c_strTask)
+   {
+       cmd_comand = c_strTask;
    }
 };
 
@@ -106,10 +110,19 @@ int main()
 
     }
 
-    for(unsigned int i = 0; i <= tmp.size(); ++i)
-    {
-        std::cout << tmp[i]<< std::endl;
-    }
+//    for(unsigned int i = 0; i <= tmp.size(); ++i)
+//    {
+//        std::cout << tmp[i]<< std::endl;
+//    }
+
+    Task cronDeamon;
+
+    cronDeamon.extractMinutesVal(tmp[0]);
+    cronDeamon.extractHoursVal(tmp[1]);
+    cronDeamon.extractDaysVal(tmp[3]);
+    cronDeamon.extractCmdVal(tmp[4]);
+
+
     
     return 0;
 }
